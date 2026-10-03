@@ -78,10 +78,11 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 600; letter-spacing: -.07
 .card-image { display: block; height: 360px; position: relative; overflow: hidden; background: #e4ded1; }
 .card-tall .card-image { height: 430px; }
 .work-card:nth-child(3n + 2) .card-image { height: 320px; }
-.work-card img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .65s cubic-bezier(.2,.65,.2,1); }
-.work-card:hover img { transform: scale(1.045); }
+.work-card img, .work-card video { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .65s cubic-bezier(.2,.65,.2,1); }
+.work-card:hover img, .work-card:hover video { transform: scale(1.045); }
 .card-arrow { position: absolute; right: 13px; top: 13px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: var(--ink); background: var(--paper); opacity: 0; transform: translateY(4px); transition: .2s ease; }
 .work-card:hover .card-arrow, .work-card:focus-visible .card-arrow { opacity: 1; transform: translateY(0); }
+.card-play { position: absolute; top: 13px; right: 13px; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; color: var(--ink); background: var(--paper); font-size: 13px; }
 .card-meta { padding-top: 15px; display: flex; align-items: center; justify-content: space-between; }
 .card-meta small, .card-number { display: block; margin-bottom: 6px; color: #85847a; font: 9px var(--mono); letter-spacing: .04em; }
 .card-meta strong { font-size: 13px; font-weight: 600; }
@@ -92,6 +93,7 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 600; letter-spacing: -.07
 .about-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 630px; background: #e9e7dc; }
 .about-image { min-height: 630px; overflow: hidden; position: relative; }
 .about-image img { display: block; width: 100%; height: 100%; min-height: 630px; object-fit: cover; object-position: center 42%; filter: saturate(.78); }
+.about-video { display: block; width: 100%; height: 100%; min-height: 630px; object-fit: cover; }
 .about-image-note { position: absolute; bottom: 23px; left: 28px; color: white; font: 9px var(--mono); letter-spacing: .08em; }
 .about-copy { position: relative; padding: 105px 12.5% 85px 12%; align-self: center; }
 .about-copy h2 { font-size: clamp(45px, 5vw, 67px); }
@@ -118,7 +120,7 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 600; letter-spacing: -.07
 
 .lightbox { position: fixed; z-index: 20; inset: 0; display: none; align-items: center; justify-content: center; flex-direction: column; padding: 40px 24px; color: #fff; background: rgb(20 21 19 / 94%); }
 .lightbox.is-open { display: flex; }
-.lightbox img { max-width: min(88vw, 860px); max-height: 78vh; object-fit: contain; }
+.lightbox img, .lightbox video { max-width: min(88vw, 860px); max-height: 78vh; object-fit: contain; }
 .lightbox p { margin: 16px 0 0; font: 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 .lightbox-close { position: absolute; right: 30px; top: 20px; border: 0; background: none; color: white; font-size: 38px; line-height: 1; cursor: pointer; }
 body.modal-open { overflow: hidden; }
@@ -173,8 +175,8 @@ body.modal-open { overflow: hidden; }
   .card-meta strong { font-size: 11px; }
   .card-number { font-size: 8px; }
   .work-footnote { margin-top: 38px; line-height: 1.6; }
-  .about-section { grid-template-columns: 1fr; }
-  .about-image, .about-image img { min-height: 0; height: 104vw; max-height: 500px; }
+  .about-section { grid-template-columns: minmax(0, 1fr); }
+  .about-image, .about-image img, .about-video { min-height: 0; height: 104vw; max-height: 500px; }
   .about-copy { padding: 63px 7vw 100px; }
   .about-body { font-size: 11px; }
   .handwritten { right: 9%; bottom: 39px; }

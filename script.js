@@ -34,6 +34,7 @@ filters.forEach((filter) => {
 
 const lightbox = document.querySelector('.lightbox');
 const lightboxImage = lightbox.querySelector('img');
+const lightboxVideo = lightbox.querySelector('video');
 const lightboxCaption = lightbox.querySelector('p');
 const closeButton = lightbox.querySelector('.lightbox-close');
 let lastFocusedCard;
@@ -42,6 +43,11 @@ function closeLightbox() {
   lightbox.classList.remove('is-open');
   lightbox.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('modal-open');
+  lightboxVideo.pause();
+  lightboxVideo.removeAttribute('src');
+  lightboxVideo.load();
+  lightboxVideo.hidden = true;
+  lightboxImage.hidden = false;
   lightboxImage.src = '';
   if (lastFocusedCard) lastFocusedCard.focus();
 }
@@ -49,8 +55,20 @@ function closeLightbox() {
 cards.forEach((card) => {
   card.addEventListener('click', () => {
     lastFocusedCard = card;
-    lightboxImage.src = card.dataset.image;
-    lightboxImage.alt = card.querySelector('img').alt;
+    const videoSource = card.dataset.video;
+    lightboxImage.hidden = Boolean(videoSource);
+    lightboxVideo.hidden = !videoSource;
+    if (videoSource) {
+      lightboxVideo.src = videoSource;
+      lightboxVideo.load();
+      lightboxVideo.play().catch(() => {});
+    } else {
+      lightboxVideo.pause();
+      lightboxVideo.removeAttribute('src');
+      lightboxVideo.load();
+      lightboxImage.src = card.dataset.image;
+      lightboxImage.alt = card.querySelector('img').alt;
+    }
     lightboxCaption.textContent = card.dataset.title;
     lightbox.classList.add('is-open');
     lightbox.setAttribute('aria-hidden', 'false');
